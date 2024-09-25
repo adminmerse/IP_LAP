@@ -418,7 +418,7 @@ ref_imgs = torch.FloatTensor(np.asarray(ref_imgs) / 255.0).unsqueeze(0).permute(
 ##prepare output video strame##
 frame_h, frame_w = ori_background_frames[0].shape[:-1]
 out_stream = cv2.VideoWriter('{}/result.avi'.format(temp_dir), cv2.VideoWriter_fourcc(*'DIVX'), fps,
-                             (frame_w * 2, frame_h))  # +frame_h*3
+                             (frame_w, frame_h))  # +frame_h*3
 
 
 ##generate final face image and output video##
@@ -507,6 +507,7 @@ for batch_idx, batch_start_idx in tqdm(enumerate(range(0, input_mel_chunks_len -
     T_input_frame[2][y1:y2, x1:x2] = cv2.resize(gen_face,(x2 - x1, y2 - y1))  #resize and paste generated face
     # 5. post-process
     full = merge_face_contour_only(original_background, T_input_frame[2], T_ori_face_coordinates[2][1],fa)   #(H,W,3)
+    # print(full.shape, full.dtype)
     # 6.output
     # Commenting this out to not include the sketch in the final video
     # full = np.concatenate([show_sketch, full], axis=1)
