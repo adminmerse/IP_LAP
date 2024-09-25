@@ -508,7 +508,8 @@ for batch_idx, batch_start_idx in tqdm(enumerate(range(0, input_mel_chunks_len -
     # 5. post-process
     full = merge_face_contour_only(original_background, T_input_frame[2], T_ori_face_coordinates[2][1],fa)   #(H,W,3)
     # 6.output
-    full = np.concatenate([show_sketch, full], axis=1)
+    # Commenting this out to not include the sketch in the final video
+    # full = np.concatenate([show_sketch, full], axis=1)
     out_stream.write(full)
     if batch_idx == 0:
         out_stream.write(full)
